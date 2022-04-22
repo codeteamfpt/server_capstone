@@ -17,23 +17,23 @@ public class BookActionImpl implements BookActionApi {
 
 
     @Override
-    public ListResponse<BookResponse> getBooks(GetAllRequest request) {
+    public ListResponse<BookResponse> getBooks() {
         return bookActionService.getAllBook();
     }
 
     @Override
     public GeneralResponse addBook(BookRequest bookRequest) {
-        return null;
+        return bookActionService.addBook(bookRequest);
     }
 
     @Override
     public GeneralResponse deleteBook(BookRequest bookRequest) {
-        return null;
+        return bookActionService.deleteBook(bookRequest);
     }
 
     @Override
     public GeneralResponse updateBook(BookRequest bookRequest) {
-        return null;
+        return bookActionService.updateBook(bookRequest);
     }
 
     @Override

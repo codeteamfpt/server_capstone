@@ -15,6 +15,6 @@ public class AccountResponse {
     Long accountId;
     String userName;
     String passWord;
-    boolean role;
+    Long role;
     String userImage;
 }

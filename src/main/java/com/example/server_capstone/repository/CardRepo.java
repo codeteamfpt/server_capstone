@@ -2,6 +2,9 @@ package com.example.server_capstone.repository;
 
 import com.example.server_capstone.entity.CardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CardRepo extends JpaRepository<CardEntity,Long> {
+@Repository
+public interface CardRepo extends JpaRepository<CardEntity, Long> {
+    Long findByAccountId(Long accountId);
 }

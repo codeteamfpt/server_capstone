@@ -13,6 +13,6 @@ import javax.persistence.Entity;
 @Data
 @Builder
 public class CardResponse {
-    Long cardId;
-    Long accountId;
+    String bookName;
+    Long numberBook;
 }

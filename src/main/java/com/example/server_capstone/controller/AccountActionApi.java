@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api")
 public interface AccountActionApi {
     @GetMapping(value = "/account/all")
-    ListResponse<AccountResponse> getAllAccount(GetAllRequest request);
+    ListResponse<AccountResponse> getAllAccount();
 
     @GetMapping(value = "/account/check")
     GeneralResponse checkAccount(AccountRequest request);
@@ -24,4 +24,7 @@ public interface AccountActionApi {
 
     @GetMapping(value = "/account/update")
     GeneralResponse updateAccount(AccountRequest request);
+
+    @GetMapping(value = "/account/get")
+    AccountResponse getAccount(AccountRequest request);
 }

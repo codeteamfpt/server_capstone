@@ -1,9 +1,6 @@
 package com.example.server_capstone.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Column;
@@ -16,6 +13,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Builder
+@Getter
+@Setter
 @Table(name = "account")
 public class AccountEntity {
     @Id
@@ -26,7 +25,7 @@ public class AccountEntity {
     @Column(name = "pass_word")
     String passWord;
     @Column(name = "role")
-    boolean role;
+    Long role;
     @Column(name = "user_image")
     String userImage;
 }

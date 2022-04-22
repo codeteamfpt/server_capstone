@@ -21,4 +21,7 @@ public interface CardActionApi {
 
     @GetMapping(value = "/card/update")
     GeneralResponse updatecard(CardRequest request);
+
+    @GetMapping(value = "/card/create")
+    GeneralResponse createcard(CardRequest request);
 }

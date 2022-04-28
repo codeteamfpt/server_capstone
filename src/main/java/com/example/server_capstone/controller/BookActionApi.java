@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequestMapping("/api")
 public interface BookActionApi {
     @GetMapping(value = "/book/getall")
-    ListResponse<BookResponse> getBooks();
+    List<BookResponse> getBooks();
 
     @GetMapping(value = "/book/add")
     GeneralResponse addBook(@RequestBody BookRequest bookRequest);
@@ -22,6 +24,6 @@ public interface BookActionApi {
     @GetMapping(value = "/book/update")
     GeneralResponse updateBook(@RequestBody BookRequest bookRequest);
 
-    @GetMapping(value = "/book/1")
-    String updateBook();
+    @GetMapping(value = "/book/getone")
+    BookResponse getOneBook(BookRequest bookRequest);
 }

@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 
 @RequestMapping("/api")
 public interface AccountActionApi {
     @GetMapping(value = "/account/all")
-    ListResponse<AccountResponse> getAllAccount();
+    List<AccountResponse> getAllAccount();
 
     @GetMapping(value = "/account/check")
-    GeneralResponse checkAccount(@RequestBody AccountRequest request);
+    AccountResponse checkAccount(@RequestBody AccountRequest request);
 
     @GetMapping(value = "/account/regis")
     GeneralResponse regisAccount(@RequestBody AccountRequest request);

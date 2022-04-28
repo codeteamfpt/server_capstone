@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequestMapping("/api")
 public interface CardActionApi {
     @GetMapping(value = "/card/getall")
-    ListResponse<CardResponse> getcards(GetAllRequest request);
+    List<CardResponse> getcards(@RequestBody GetAllRequest request);
 
     @GetMapping(value = "/card/add")
     GeneralResponse addcard(@RequestBody CardRequest request);

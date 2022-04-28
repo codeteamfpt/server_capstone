@@ -28,14 +28,14 @@ public class CardActionService {
     BookRepo bookRepo;
 
     public GeneralResponse createCard(CardRequest request){
-        Long cardId = cardRepo.findByAccountId(request.getAccountId());
+        CardEntity cardId = cardRepo.findByAccountId(request.getAccountId());
         CardEntity cardEntity = new CardEntity().builder()
                 .accountId(request.getAccountId())
                 .build();
         if(cardId == null){
             cardRepo.save(cardEntity);
         }else{
-            cardRepo.deleteById(cardId);
+            cardRepo.deleteById(cardId.getCardId());
             cardRepo.save(cardEntity);
         }
         GeneralResponse response = new GeneralResponse();
@@ -46,9 +46,9 @@ public class CardActionService {
         return response;
     }
 
-    public ListResponse<CardResponse> getCard(GetAllRequest cardRequest) {
-        Long cardId = cardRepo.findByAccountId(cardRequest.getAccountId());
-        List<CardInfoEntity> cardInfoEntities = cardInfoRepo.findAllByCardId(cardId);
+    public List<CardResponse> getCard(GetAllRequest cardRequest) {
+        CardEntity cardId = cardRepo.findByAccountId(cardRequest.getAccountId());
+        List<CardInfoEntity> cardInfoEntities = cardInfoRepo.findAllByCardId(cardId.getCardId());
         List<CardResponse> cardResponses = new ArrayList<>();
         for (CardInfoEntity cardInfoEntity: cardInfoEntities
              ) {
@@ -59,9 +59,7 @@ public class CardActionService {
                     .build();
             cardResponses.add(card);
         }
-        ListResponse<CardResponse> cardResponseListResponse = new ListResponse<>();
-        cardResponseListResponse.setList(cardResponses);
-        return cardResponseListResponse;
+        return cardResponses;
     }
 
     public GeneralResponse updateCard(CardRequest cardRequest) {
@@ -77,7 +75,7 @@ public class CardActionService {
     }
 
     GeneralResponse actioncard(CardRequest cardRequest, String action) {
-        Long cardId = cardRepo.findByAccountId(cardRequest.getAccountId());
+        CardEntity cardId = cardRepo.findByAccountId(cardRequest.getAccountId());
         GeneralResponse response = new GeneralResponse();
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
         if (cardId == null) {
@@ -87,11 +85,11 @@ public class CardActionService {
             return response;
         } else {
             if (action.equals("update")) {
-                cardInfoRepo.updateBook(cardRequest.getNumberBook(),cardRequest.getBookId(),cardId);
+                cardInfoRepo.updateBook(cardRequest.getNumberBook(),cardRequest.getBookId(),cardId.getCardId());
             } else if (action.equals("delete")) {
-                cardInfoRepo.deleteByCardIdAndBookId(cardId,cardRequest.getBookId());
+                cardInfoRepo.deleteByCardIdAndBookId(cardId.getCardId(),cardRequest.getBookId());
             }else if (action.equals("add")) {
-                cardInfoRepo.addBook(cardId,cardRequest.getBookId(),cardRequest.getNumberBook());
+                cardInfoRepo.addBook(cardId.getCardId(),cardRequest.getBookId(),cardRequest.getNumberBook());
             }else {
                 statusResponse.setCode("002");
                 statusResponse.setMessage("Wrong action !");

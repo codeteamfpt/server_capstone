@@ -10,6 +10,8 @@ import com.example.server_capstone.service.BookActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BookActionImpl implements BookActionApi {
     @Autowired
@@ -17,7 +19,7 @@ public class BookActionImpl implements BookActionApi {
 
 
     @Override
-    public ListResponse<BookResponse> getBooks() {
+    public List<BookResponse> getBooks() {
         return bookActionService.getAllBook();
     }
 
@@ -37,7 +39,9 @@ public class BookActionImpl implements BookActionApi {
     }
 
     @Override
-    public String updateBook() {
-        return "123123";
+    public BookResponse getOneBook(BookRequest bookRequest) {
+        return bookActionService.getOneBook(bookRequest);
     }
+
+
 }

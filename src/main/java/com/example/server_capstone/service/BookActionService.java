@@ -7,7 +7,6 @@ import com.example.server_capstone.dto.response.ListResponse;
 import com.example.server_capstone.entity.BookEntity;
 import com.example.server_capstone.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class BookActionService {
     BookRepo bookRepo;
 
 
-    public ListResponse<BookResponse> getAllBook() {
+    public List<BookResponse> getAllBook() {
         List<BookEntity> bookList = bookRepo.findAll();
         List<BookResponse> bookResponseList = new ArrayList<>();
         for (BookEntity book : bookList
@@ -34,53 +33,82 @@ public class BookActionService {
                     .build();
             bookResponseList.add(bookResponse);
         }
-        ListResponse<BookResponse> bookResponseListResponse = new ListResponse<>();
-        bookResponseListResponse.setList(bookResponseList);
-        return bookResponseListResponse;
+        return bookResponseList;
     }
 
     public GeneralResponse updateBook(BookRequest bookRequest) {
-        return actionBook(bookRequest,"update");
+        return actionBook(bookRequest, "update");
     }
 
     public GeneralResponse deleteBook(BookRequest bookRequest) {
-        return actionBook(bookRequest,"delete");
+        return actionBook(bookRequest, "delete");
     }
 
     public GeneralResponse addBook(BookRequest bookRequest) {
-        return actionBook(bookRequest,"add");
+        return actionBook(bookRequest, "add");
     }
 
     GeneralResponse actionBook(BookRequest bookRequest, String action) {
-        Long bookId = bookRequest.getBookId();
-        Optional<BookEntity> book = bookRepo.findById(bookId);
+
         GeneralResponse response = new GeneralResponse();
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
-        if (!book.isPresent()) {
-            statusResponse.setCode("001");
-            statusResponse.setMessage("Can't find bookId");
-            response.setStatus(statusResponse);
-            return response;
-        } else {
-            if (action.equals("update")) {
-                bookRepo.updateBook(bookRequest.getBookId(), bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(),bookRequest.getBookType());
-            } else if (action.equals("delete")) {
-                bookRepo.deleteById(bookRequest.getBookId());
-            }else if (action.equals("add")) {
-                bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(),bookRequest.getBookType());
-            }else {
-                statusResponse.setCode("002");
-                statusResponse.setMessage("Wrong action !");
+        if(action.equals("add")) {
+            bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType());
+        }else {
+            Long bookId = bookRequest.getBookId();
+            Optional<BookEntity> book = bookRepo.findById(bookId);
+
+            if (!book.isPresent()) {
+                statusResponse.setCode("001");
+                statusResponse.setMessage("Can't find bookId");
                 response.setStatus(statusResponse);
                 return response;
+            } else {
+                if (action.equals("update")) {
+                    bookRepo.updateBook(bookRequest.getBookId(), bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType());
+                } else if (action.equals("delete")) {
+                    bookRepo.deleteById(bookRequest.getBookId());
+                }  else {
+                    statusResponse.setCode("002");
+                    statusResponse.setMessage("Wrong action !");
+                    response.setStatus(statusResponse);
+                    return response;
+                }
+
             }
-            statusResponse.setCode("000");
-            statusResponse.setMessage("Success");
-            response.setStatus(statusResponse);
-            return response;
         }
-
-
+        statusResponse.setCode("000");
+        statusResponse.setMessage("Success");
+        response.setStatus(statusResponse);
+        return response;
     }
 
+    public BookResponse getOneBook(BookRequest bookRequest){
+        BookResponse response = new BookResponse();
+        if(bookRequest.getBookId() == null){
+            response.builder()
+                    .bookId(0L)
+                    .build();
+            return response;
+        }else {
+            Long bookId = bookRequest.getBookId();
+            Optional<BookEntity> book = bookRepo.findById(bookId);
+            if (!book.isPresent()) {
+                response.builder()
+                        .bookId(0L)
+                        .build();
+                return response;
+            } else {
+                response.builder()
+                        .bookId(book.get().getBookId())
+                        .bookType(book.get().getBookType())
+                        .bookInfo(book.get().getBookInfo())
+                        .bookName(book.get().getBookName())
+                        .bookPrice(book.get().getBookPrice())
+                        .bookInfo(book.get().getBookInfo())
+                        .build();
+                return response;
+            }
+        }
+    }
 }

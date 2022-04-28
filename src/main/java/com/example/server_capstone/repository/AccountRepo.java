@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepo extends JpaRepository<AccountEntity,Long> {
     AccountEntity findByUserName(String userName);
+    AccountEntity findByUserNameAndPassWord(String userName, String passWord);
 
     @Modifying
     @Query( value = "UPDATE account SET user_name = :userName,pass_word = :passWord," +

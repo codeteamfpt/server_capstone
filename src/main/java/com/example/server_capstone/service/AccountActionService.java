@@ -19,9 +19,8 @@ public class AccountActionService {
     @Autowired
     AccountRepo accountRepo;
 
-    public ListResponse<AccountResponse> getAllAccount() {
+    public List<AccountResponse> getAllAccount() {
         List<AccountEntity> list = accountRepo.findAll();
-        ListResponse<AccountResponse> accountResponseListResponse = new ListResponse<>();
         List<AccountResponse> responseList = new ArrayList<>();
         for (AccountEntity entity : list
         ) {
@@ -34,8 +33,7 @@ public class AccountActionService {
                     .build();
             responseList.add(account);
         }
-        accountResponseListResponse.setList(responseList);
-        return accountResponseListResponse;
+        return responseList;
     }
     public AccountResponse getAccount(AccountRequest request){
         Optional<AccountEntity> account = accountRepo.findById(request.getAccountId());
@@ -48,18 +46,15 @@ public class AccountActionService {
         return response;
     }
 
-    public GeneralResponse checkAccount(AccountRequest request) {
-        Optional<AccountEntity> account = accountRepo.findById(request.getAccountId());
-        GeneralResponse response = new GeneralResponse();
-        GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
-        if (account.isPresent()) {
-            statusResponse.setCode("00");
-            statusResponse.setMessage("Account Exist");
-        } else {
-            statusResponse.setCode("01");
-            statusResponse.setMessage("Account Doesn't Exist");
-        }
-        response.setStatus(statusResponse);
+    public AccountResponse checkAccount(AccountRequest request) {
+        AccountEntity account = accountRepo.findByUserNameAndPassWord(request.getUserName(), request.getPassWord());
+        AccountResponse response = new AccountResponse().builder()
+                .accountId(account.getAccountId())
+                .passWord(account.getPassWord())
+                .userName(account.getUserName())
+                .role(account.getRole())
+                .userImage(account.getUserImage())
+                .build();
         return response;
     }
 

@@ -10,13 +10,15 @@ import com.example.server_capstone.service.CardActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class CardActionImpl implements CardActionApi {
     @Autowired
     CardActionService cardActionService;
 
     @Override
-    public ListResponse<CardResponse> getcards(GetAllRequest request) {
+    public List<CardResponse> getcards(GetAllRequest request) {
         return cardActionService.getCard(request);
     }
     @Override

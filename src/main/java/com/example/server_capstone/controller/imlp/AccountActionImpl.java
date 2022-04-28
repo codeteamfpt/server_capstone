@@ -10,6 +10,8 @@ import com.example.server_capstone.service.AccountActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class AccountActionImpl implements AccountActionApi {
 
@@ -17,12 +19,12 @@ public class AccountActionImpl implements AccountActionApi {
     AccountActionService accountActionService;
 
     @Override
-    public ListResponse<AccountResponse> getAllAccount() {
+    public List<AccountResponse> getAllAccount() {
         return accountActionService.getAllAccount();
     }
 
     @Override
-    public GeneralResponse checkAccount(AccountRequest request) {
+    public AccountResponse checkAccount(AccountRequest request) {
         return accountActionService.checkAccount(request);
     }
 

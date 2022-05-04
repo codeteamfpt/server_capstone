@@ -14,7 +14,7 @@ public interface CardInfoRepo extends JpaRepository<CardInfoEntity, Long> {
     List<CardInfoEntity> findAllByCardId(Long cardId);
 
     void deleteByCardIdAndBookId(Long cardId, Long bookId);
-
+    void deleteByCardId(Long cardId);
     @Modifying
     @Query(value = "INSERT INTO card_info (card_id, number_books, book_id)" +
             "VALUES (:cardId, :numberBooks, :bookId);",

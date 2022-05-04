@@ -1,11 +1,9 @@
 package com.example.server_capstone.controller.imlp;
-
 import com.example.server_capstone.controller.CardActionApi;
 import com.example.server_capstone.dto.request.CardRequest;
 import com.example.server_capstone.dto.request.GetAllRequest;
 import com.example.server_capstone.dto.response.CardResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
-import com.example.server_capstone.dto.response.ListResponse;
 import com.example.server_capstone.service.CardActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

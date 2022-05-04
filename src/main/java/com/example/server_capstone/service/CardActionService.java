@@ -35,6 +35,7 @@ public class CardActionService {
         if(cardId == null){
             cardRepo.save(cardEntity);
         }else{
+            cardInfoRepo.deleteByCardId(cardId.getCardId());
             cardRepo.deleteById(cardId.getCardId());
             cardRepo.save(cardEntity);
         }

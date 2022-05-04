@@ -93,8 +93,8 @@ public class AccountActionService {
     public GeneralResponse updateAccount(AccountRequest request){
         GeneralResponse response = new GeneralResponse();
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
-        AccountEntity account = accountRepo.findByUserName(request.getUserName());
-        if (account == null) {
+        Optional<AccountEntity> account = accountRepo.findById(request.getAccountId());
+        if (!account.isPresent()) {
             statusResponse.setCode("01");
             statusResponse.setMessage("Account Doesn't Exist");
         } else {

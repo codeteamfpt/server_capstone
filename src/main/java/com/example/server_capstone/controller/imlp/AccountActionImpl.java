@@ -28,8 +28,9 @@ public class AccountActionImpl implements AccountActionApi {
         return accountActionService.checkAccount(request);
     }
 
+
     @Override
-    public GeneralResponse regisAccount(AccountRequest request) {
+    public AccountResponse regisAccount(AccountRequest request) {
         return accountActionService.regisAccount(request);
     }
 
@@ -46,5 +47,11 @@ public class AccountActionImpl implements AccountActionApi {
     @Override
     public AccountResponse getAccount(AccountRequest request) {
         return accountActionService.getAccount(request);
+    }
+
+    @Override
+    public GeneralResponse regisAccount(String check) {
+        System.out.println(check);
+        return null;
     }
 }

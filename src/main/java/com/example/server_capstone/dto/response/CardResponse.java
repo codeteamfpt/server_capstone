@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import javax.persistence.Entity;
+
 
 @Slf4j
 @AllArgsConstructor
@@ -13,6 +13,10 @@ import javax.persistence.Entity;
 @Data
 @Builder
 public class CardResponse {
+    Long bookId;
     String bookName;
+    String bookInfo;
+    String bookPrice;
+    String bookType;
     Long numberBook;
 }

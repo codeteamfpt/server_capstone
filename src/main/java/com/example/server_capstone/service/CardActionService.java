@@ -55,12 +55,29 @@ public class CardActionService {
              ) {
             Optional<BookEntity> book = bookRepo.findById(cardInfoEntity.getBookId());
             CardResponse card = new CardResponse().builder()
+                    .bookId(book.get().getBookId())
                     .bookName(book.get().getBookName())
                     .numberBook(cardInfoEntity.getNumberBook())
+                    .bookInfo(book.get().getBookInfo())
+                    .bookPrice(book.get().getBookPrice())
+                    .bookType(book.get().getBookType())
                     .build();
             cardResponses.add(card);
         }
         return cardResponses;
+    }
+
+
+    public double payCard(GetAllRequest cardRequest) {
+        CardEntity cardId = cardRepo.findByAccountId(cardRequest.getAccountId());
+        List<CardInfoEntity> cardInfoEntities = cardInfoRepo.findAllByCardId(cardId.getCardId());
+        double price= 0;
+        for (CardInfoEntity c: cardInfoEntities
+        ) {
+            Optional<BookEntity> book = bookRepo.findById(c.getBookId());
+            price += Double.parseDouble(book.get().getBookPrice())  *  Double.parseDouble(c.getNumberBook().toString());
+        }
+        return price;
     }
 
     public GeneralResponse updateCard(CardRequest cardRequest) {
@@ -90,7 +107,13 @@ public class CardActionService {
             } else if (action.equals("delete")) {
                 cardInfoRepo.deleteByCardIdAndBookId(cardId.getCardId(),cardRequest.getBookId());
             }else if (action.equals("add")) {
-                cardInfoRepo.addBook(cardId.getCardId(),cardRequest.getBookId(),cardRequest.getNumberBook());
+                CardInfoEntity entity = cardInfoRepo.findByBookIdAndCardId(cardRequest.getBookId(),cardId.getCardId());
+                if(entity != null) {
+                    cardRequest.setNumberBook(entity.getNumberBook() + cardRequest.getNumberBook());
+                    actioncard(cardRequest,"update");
+                }else{
+                    cardInfoRepo.addBook(cardId.getCardId(),cardRequest.getBookId(),cardRequest.getNumberBook());
+                }
             }else {
                 statusResponse.setCode("002");
                 statusResponse.setMessage("Wrong action !");

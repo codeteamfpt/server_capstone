@@ -6,6 +6,7 @@ import com.example.server_capstone.dto.response.CardResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
 import com.example.server_capstone.dto.response.ListResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,18 +14,21 @@ import java.util.List;
 
 @RequestMapping("/api")
 public interface CardActionApi {
-    @GetMapping(value = "/card/getall")
+    @PostMapping(value = "/card/getall")
     List<CardResponse> getcards(@RequestBody GetAllRequest request);
 
-    @GetMapping(value = "/card/add")
+    @PostMapping(value = "/card/pay")
+    double paycard(@RequestBody GetAllRequest request);
+
+    @PostMapping(value = "/card/add")
     GeneralResponse addcard(@RequestBody CardRequest request);
 
-    @GetMapping(value = "/card/delete")
+    @PostMapping(value = "/card/delete")
     GeneralResponse deletecard(@RequestBody CardRequest request);
 
-    @GetMapping(value = "/card/update")
+    @PostMapping(value = "/card/update")
     GeneralResponse updatecard(@RequestBody CardRequest request);
 
-    @GetMapping(value = "/card/create")
+    @PostMapping(value = "/card/create")
     GeneralResponse createcard(@RequestBody CardRequest request);
 }

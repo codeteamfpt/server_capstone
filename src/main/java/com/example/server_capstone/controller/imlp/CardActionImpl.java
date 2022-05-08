@@ -19,6 +19,12 @@ public class CardActionImpl implements CardActionApi {
     public List<CardResponse> getcards(GetAllRequest request) {
         return cardActionService.getCard(request);
     }
+
+    @Override
+    public double paycard(GetAllRequest request) {
+        return cardActionService.payCard(request);
+    }
+
     @Override
     public GeneralResponse addcard(CardRequest request) {
         return cardActionService.addCard(request);

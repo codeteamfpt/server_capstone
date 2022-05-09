@@ -15,13 +15,13 @@ import javax.persistence.Table;
 @Builder
 @Getter
 @Setter
-@Table(name = "card_info")
-public class CardInfoEntity {
+@Table(name = "cart_info")
+public class CartInfoEntity {
     @Id
-    @Column(name = "card_info_id")
-    Long cardInfoId;
-    @Column(name = "card_id")
-    Long cardId;
+    @Column(name = "cart_info_id")
+    Long cartInfoId;
+    @Column(name = "cart_id")
+    Long cartId;
     @Column(name = "book_id")
     Long bookId;
     @Column(name = "number_books")

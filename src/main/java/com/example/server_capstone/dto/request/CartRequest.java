@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Data
 @Builder
-public class CardRequest {
+public class CartRequest {
     Long accountId;
     Long bookId;
     Long numberBook;

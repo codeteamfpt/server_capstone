@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Data
 @Builder
-public class CardResponse {
+public class CartResponse {
     Long bookId;
     String bookName;
     String bookInfo;

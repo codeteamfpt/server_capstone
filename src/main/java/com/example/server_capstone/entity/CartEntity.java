@@ -12,12 +12,12 @@ import javax.persistence.*;
 @Builder
 @Setter
 @Getter
-@Table(name = "card")
-public class CardEntity {
+@Table(name = "cart")
+public class CartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "card_id")
-    Long cardId;
+    @Column(name = "cart_id")
+    Long cartId;
     @Column(name = "account_id")
     Long accountId;
 }

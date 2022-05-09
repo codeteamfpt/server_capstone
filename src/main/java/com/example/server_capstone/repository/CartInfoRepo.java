@@ -1,6 +1,6 @@
 package com.example.server_capstone.repository;
 
-import com.example.server_capstone.entity.CardInfoEntity;
+import com.example.server_capstone.entity.CartInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,23 +11,23 @@ import java.util.List;
 
 @Transactional
 @Repository
-public interface CardInfoRepo extends JpaRepository<CardInfoEntity, Long> {
-    List<CardInfoEntity> findAllByCardId(Long cardId);
+public interface CartInfoRepo extends JpaRepository<CartInfoEntity, Long> {
+    List<CartInfoEntity> findAllByCartId(Long cartId);
 
-    CardInfoEntity findByBookIdAndCardId(Long bookId,Long cardId);
-    void deleteByCardIdAndBookId(Long cardId, Long bookId);
-    void deleteByCardId(Long cardId);
+    CartInfoEntity findByBookIdAndCartId(Long bookId,Long cartId);
+    void deleteByCartIdAndBookId(Long cartId, Long bookId);
+    void deleteByCartId(Long cartId);
     @Modifying
-    @Query(value = "INSERT INTO card_info (card_id, book_id,number_books ) VALUES ( :cardId, :bookId , :numberBooks )",
+    @Query(value = "INSERT INTO cart_info (cart_id, book_id,number_books ) VALUES ( :cartId, :bookId , :numberBooks )",
             nativeQuery = true)
-    void addBook(@Param("cardId") Long cardId,
+    void addBook(@Param("cartId") Long cartId,
                  @Param("bookId") Long bookId,
                  @Param("numberBooks") Long numberBooks);
 
 
-    @Query(value = "UPDATE card_info SET number_books = :bookNumber WHERE book_id = :bookId AND card_id = :cardId ",
+    @Query(value = "UPDATE cart_info SET number_books = :bookNumber WHERE book_id = :bookId AND cart_id = :cartId ",
             nativeQuery = true)
     void updateBook(@Param("bookNumber") Long bookNumber,
                     @Param("bookId") Long bookId,
-                    @Param("cardId") Long cardId);
+                    @Param("cartId") Long cartId);
 }

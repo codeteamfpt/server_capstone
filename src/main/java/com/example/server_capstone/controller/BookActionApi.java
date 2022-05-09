@@ -26,5 +26,5 @@ public interface BookActionApi {
     GeneralResponse updateBook(@RequestBody BookRequest bookRequest);
 
     @PostMapping(value = "/book/getone")
-    BookResponse getOneBook(BookRequest bookRequest);
+    BookResponse getOneBook(@RequestBody BookRequest bookRequest);
 }

@@ -53,9 +53,9 @@ public class BookActionService {
 
         GeneralResponse response = new GeneralResponse();
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
-        if(action.equals("add")) {
-            bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType(),bookRequest.getBookImage());
-        }else {
+        if (action.equals("add")) {
+            bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType(), bookRequest.getBookImage());
+        } else {
             Long bookId = bookRequest.getBookId();
             Optional<BookEntity> book = bookRepo.findById(bookId);
 
@@ -69,7 +69,7 @@ public class BookActionService {
                     bookRepo.updateBook(bookRequest.getBookId(), bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType(), bookRequest.getBookImage());
                 } else if (action.equals("delete")) {
                     bookRepo.deleteById(bookRequest.getBookId());
-                }  else {
+                } else {
                     statusResponse.setCode("002");
                     statusResponse.setMessage("Wrong action !");
                     response.setStatus(statusResponse);
@@ -84,23 +84,20 @@ public class BookActionService {
         return response;
     }
 
-    public BookResponse getOneBook(BookRequest bookRequest){
-        BookResponse response = new BookResponse();
-        if(bookRequest.getBookId() == null){
-            response.builder()
+    public BookResponse getOneBook(BookRequest bookRequest) {
+        if (bookRequest.getBookId() == null) {
+            return BookResponse.builder()
                     .bookId(0L)
                     .build();
-            return response;
-        }else {
+        } else {
             Long bookId = bookRequest.getBookId();
             Optional<BookEntity> book = bookRepo.findById(bookId);
             if (!book.isPresent()) {
-                response.builder()
+                return BookResponse.builder()
                         .bookId(0L)
                         .build();
-                return response;
             } else {
-                response.builder()
+                return BookResponse.builder()
                         .bookId(book.get().getBookId())
                         .bookType(book.get().getBookType())
                         .bookInfo(book.get().getBookInfo())
@@ -109,7 +106,7 @@ public class BookActionService {
                         .bookInfo(book.get().getBookInfo())
                         .bookImage(book.get().getBookImage())
                         .build();
-                return response;
+
             }
         }
     }

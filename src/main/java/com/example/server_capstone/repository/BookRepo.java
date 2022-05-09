@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Repository
 public interface BookRepo extends JpaRepository<BookEntity,Long> {
     @Modifying
@@ -15,8 +17,8 @@ public interface BookRepo extends JpaRepository<BookEntity,Long> {
             nativeQuery = true)
     void updateBook(@Param("bookId") Long bookId,
                     @Param("bookName") String bookName,
-                    @Param("bookName") String bookInfo,
-                    @Param("bookName") String bookPrice,
+                    @Param("bookInfo") String bookInfo,
+                    @Param("bookPrice") String bookPrice,
                     @Param("bookType") String bookType,
                     @Param("bookImage") String bookImage);
 

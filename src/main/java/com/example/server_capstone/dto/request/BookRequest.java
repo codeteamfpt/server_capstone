@@ -17,4 +17,5 @@ public class BookRequest {
     String bookInfo;
     String bookPrice;
     String bookType;
+    String bookImage;
 }

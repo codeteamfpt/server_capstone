@@ -30,6 +30,7 @@ public class BookActionService {
                     .bookName(book.getBookName())
                     .bookPrice(book.getBookPrice())
                     .bookType(book.getBookType())
+                    .bookImage(book.getBookImage())
                     .build();
             bookResponseList.add(bookResponse);
         }
@@ -53,7 +54,7 @@ public class BookActionService {
         GeneralResponse response = new GeneralResponse();
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
         if(action.equals("add")) {
-            bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType());
+            bookRepo.addBook(bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType(),bookRequest.getBookImage());
         }else {
             Long bookId = bookRequest.getBookId();
             Optional<BookEntity> book = bookRepo.findById(bookId);
@@ -65,7 +66,7 @@ public class BookActionService {
                 return response;
             } else {
                 if (action.equals("update")) {
-                    bookRepo.updateBook(bookRequest.getBookId(), bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType());
+                    bookRepo.updateBook(bookRequest.getBookId(), bookRequest.getBookName(), bookRequest.getBookInfo(), bookRequest.getBookPrice(), bookRequest.getBookType(), bookRequest.getBookImage());
                 } else if (action.equals("delete")) {
                     bookRepo.deleteById(bookRequest.getBookId());
                 }  else {
@@ -106,6 +107,7 @@ public class BookActionService {
                         .bookName(book.get().getBookName())
                         .bookPrice(book.get().getBookPrice())
                         .bookInfo(book.get().getBookInfo())
+                        .bookImage(book.get().getBookImage())
                         .build();
                 return response;
             }

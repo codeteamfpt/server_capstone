@@ -28,4 +28,6 @@ public class BookEntity {
     String bookPrice;
     @Column(name = "book_type")
     String bookType;
+    @Column(name = "book_image")
+    String bookImage;
 }

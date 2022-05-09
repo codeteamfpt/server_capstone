@@ -14,4 +14,5 @@ public class BookResponse {
     String bookInfo;
     String bookPrice;
     String bookType;
+    String bookImage;
 }

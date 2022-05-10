@@ -23,7 +23,7 @@ public interface AccountActionApi {
     @PostMapping(value = "/account/delete")
     GeneralResponse deleteAccount(@RequestBody AccountRequest request);
 
-    @GetMapping(value = "/account/update")
+    @PostMapping(value = "/account/update")
     GeneralResponse updateAccount(@RequestBody AccountRequest request);
 
     @PostMapping(value = "/account/get")

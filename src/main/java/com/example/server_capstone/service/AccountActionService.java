@@ -6,7 +6,10 @@ import com.example.server_capstone.dto.response.AccountResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
 import com.example.server_capstone.dto.response.ListResponse;
 import com.example.server_capstone.entity.AccountEntity;
+import com.example.server_capstone.entity.CartEntity;
 import com.example.server_capstone.repository.AccountRepo;
+import com.example.server_capstone.repository.CartInfoRepo;
+import com.example.server_capstone.repository.CartRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,10 @@ import java.util.Optional;
 public class AccountActionService {
     @Autowired
     AccountRepo accountRepo;
+    @Autowired
+    CartRepo cartRepo;
+    @Autowired
+    CartInfoRepo cartInfoRepo;
 
     public List<AccountResponse> getAllAccount() {
         List<AccountEntity> list = accountRepo.findAll();
@@ -39,6 +46,7 @@ public class AccountActionService {
     public AccountResponse getAccount(AccountRequest request) {
         Optional<AccountEntity> account = accountRepo.findById(request.getAccountId());
         AccountResponse response = new AccountResponse().builder()
+                .accountId(account.get().getAccountId())
                 .userName(account.get().getUserName())
                 .passWord(account.get().getPassWord())
                 .role(account.get().getRole())
@@ -87,6 +95,13 @@ public class AccountActionService {
         GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse();
         Optional<AccountEntity> account = accountRepo.findById(request.getAccountId());
         if (account.isPresent()) {
+            CartEntity cartEntity = cartRepo.findByAccountId(request.getAccountId());
+            if(cartEntity != null){
+                if(!cartInfoRepo.findAllByCartId(cartEntity.getCartId()).isEmpty()){
+                    cartInfoRepo.deleteByCartId(cartEntity.getCartId());
+                }
+                cartRepo.deleteById(cartEntity.getCartId());
+            }
             accountRepo.deleteById(request.getAccountId());
             statusResponse.setCode("00");
             statusResponse.setMessage("Success");

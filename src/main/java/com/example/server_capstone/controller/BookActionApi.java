@@ -3,7 +3,6 @@ package com.example.server_capstone.controller;
 import com.example.server_capstone.dto.request.BookRequest;
 import com.example.server_capstone.dto.response.BookResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
-import com.example.server_capstone.dto.response.ListResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

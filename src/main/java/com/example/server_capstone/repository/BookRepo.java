@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public interface BookRepo extends JpaRepository<BookEntity,Long> {
+public interface BookRepo extends JpaRepository<BookEntity, Long> {
     @Modifying
-    @Query( value = "UPDATE book SET book_name = :bookName,book_info = :bookInfo," +
+    @Query(value = "UPDATE book SET book_name = :bookName,book_info = :bookInfo," +
             "book_price = :bookPrice,book_type = :bookType,book_image = :bookImage WHERE book_id = :bookId",
             nativeQuery = true)
     void updateBook(@Param("bookId") Long bookId,
@@ -22,13 +22,12 @@ public interface BookRepo extends JpaRepository<BookEntity,Long> {
                     @Param("bookType") String bookType,
                     @Param("bookImage") String bookImage);
 
-    @Query( value = "INSERT INTO book (book_name, book_info, book_price, book_type, book_image)" +
+    @Query(value = "INSERT INTO book (book_name, book_info, book_price, book_type, book_image)" +
             "VALUES (:bookName, :bookInfo, :bookPrice, :bookType , :bookImage);",
             nativeQuery = true)
-
-    void addBook(  @Param("bookName") String bookName,
-                    @Param("bookInfo") String bookInfo,
-                    @Param("bookPrice") String bookPrice,
-                    @Param("bookType") String bookType,
-                    @Param("bookImage") String bookImage);
+    void addBook(@Param("bookName") String bookName,
+                 @Param("bookInfo") String bookInfo,
+                 @Param("bookPrice") String bookPrice,
+                 @Param("bookType") String bookType,
+                 @Param("bookImage") String bookImage);
 }

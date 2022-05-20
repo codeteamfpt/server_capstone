@@ -3,7 +3,6 @@ package com.example.server_capstone.service;
 import com.example.server_capstone.dto.request.BookRequest;
 import com.example.server_capstone.dto.response.BookResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
-import com.example.server_capstone.dto.response.ListResponse;
 import com.example.server_capstone.entity.BookEntity;
 import com.example.server_capstone.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;

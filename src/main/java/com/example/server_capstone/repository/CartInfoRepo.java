@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Transactional
@@ -14,9 +15,12 @@ import java.util.List;
 public interface CartInfoRepo extends JpaRepository<CartInfoEntity, Long> {
     List<CartInfoEntity> findAllByCartId(Long cartId);
 
-    CartInfoEntity findByBookIdAndCartId(Long bookId,Long cartId);
+    CartInfoEntity findByBookIdAndCartId(Long bookId, Long cartId);
+
     void deleteByCartIdAndBookId(Long cartId, Long bookId);
+
     void deleteByCartId(Long cartId);
+
     @Modifying
     @Query(value = "INSERT INTO cart_info (cart_id, book_id,number_books ) VALUES ( :cartId, :bookId , :numberBooks )",
             nativeQuery = true)

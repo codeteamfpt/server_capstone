@@ -1,10 +1,12 @@
 package com.example.server_capstone.controller;
+
 import com.example.server_capstone.dto.request.AccountRequest;
-import com.example.server_capstone.dto.request.GetAllRequest;
 import com.example.server_capstone.dto.response.AccountResponse;
 import com.example.server_capstone.dto.response.GeneralResponse;
-import com.example.server_capstone.dto.response.ListResponse;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

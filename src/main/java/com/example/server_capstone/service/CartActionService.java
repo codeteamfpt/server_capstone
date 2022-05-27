@@ -18,6 +18,7 @@ import com.example.server_capstone.repository.CartRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -140,6 +141,7 @@ public class CartActionService {
         GeneralResponse response = new GeneralResponse();
         try{
             BillEntity billEntity = new BillEntity().builder()
+                    .accountId(request.getAccountId())
                     .name(request.getName())
                     .email(request.getEmail())
                     .phoneNumber(request.getPhoneNumber())
@@ -153,6 +155,7 @@ public class CartActionService {
                     .code("00")
                     .message("Save Success")
                     .build();
+            response.setStatus(statusResponse);
         }catch (Exception e){
             GeneralResponse.StatusResponse statusResponse = new GeneralResponse.StatusResponse().builder()
                     .code("01")
@@ -174,7 +177,7 @@ public class CartActionService {
                         .name(bill.getName())
                         .email(bill.getEmail())
                         .location(bill.getLocation())
-                        .createDate(bill.getCreateDate())
+                        .createDate(new SimpleDateFormat("dd/MM/yyyy").format(bill.getCreateDate()))
                         .status(bill.getStatus())
                         .phoneNumber(bill.getPhoneNumber())
                         .totalBill(bill.getTotalBill())

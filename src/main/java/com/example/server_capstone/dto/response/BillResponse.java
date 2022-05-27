@@ -20,6 +20,6 @@ public class BillResponse {
     String phoneNumber;
     String location;
     String totalBill;
-    Date createDate;
+    String createDate;
     String status;
 }

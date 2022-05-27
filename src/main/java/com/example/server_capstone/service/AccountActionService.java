@@ -118,7 +118,10 @@ public class AccountActionService {
         if (!account.isPresent()) {
             statusResponse.setCode("01");
             statusResponse.setMessage("Account Doesn't Exist");
-        } else {
+        } else if (account.get().getRole().toString().equals("1")){
+            statusResponse.setCode("02");
+            statusResponse.setMessage("Account Admin cannot update");
+        }else {
             accountRepo.updateAccount(request.getUserName(), request.getPassWord(), request.getRole(), request.getUserImage(), request.getAccountId());
             statusResponse.setCode("00");
             statusResponse.setMessage("Success");

@@ -3,10 +3,7 @@ package com.example.server_capstone.entity;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Slf4j
@@ -19,6 +16,7 @@ import java.util.Date;
 @Table(name = "bill")
 public class BillEntity {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "bill_id")
     Long billId;
     @Column(name = "account_id")

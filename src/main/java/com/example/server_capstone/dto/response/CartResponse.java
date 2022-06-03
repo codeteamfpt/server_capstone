@@ -19,4 +19,5 @@ public class CartResponse {
     String bookPrice;
     String bookType;
     Long numberBook;
+    String bookImage;
 }

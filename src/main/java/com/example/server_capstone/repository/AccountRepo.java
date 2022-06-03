@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
+// sử dụng JPA (phần kết nối backend với database) để thêm sửa xóa hoặc lấy thông tin từ database
 public interface AccountRepo extends JpaRepository<AccountEntity, Long> {
     AccountEntity findByUserName(String userName);
 

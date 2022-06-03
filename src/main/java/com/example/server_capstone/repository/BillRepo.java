@@ -9,6 +9,7 @@ import java.util.List;
 
 @Transactional
 @Repository
+// sử dụng JPA (phần kết nối backend với database) để thêm sửa xóa hoặc lấy thông tin từ database
 public interface BillRepo extends JpaRepository<BillEntity, Long> {
     List<BillEntity> findAllByAccountId(Long accountId);
 }

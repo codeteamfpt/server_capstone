@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
+// sử dụng JPA (phần kết nối backend với database) để thêm sửa xóa hoặc lấy thông tin từ database
 public interface BookRepo extends JpaRepository<BookEntity, Long> {
     @Modifying
     @Query(value = "UPDATE book SET book_name = :bookName,book_info = :bookInfo," +
